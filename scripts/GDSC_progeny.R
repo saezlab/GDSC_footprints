@@ -18,6 +18,8 @@ row.names(GDSC_RMA) <- GDSC_RMA$GENE_SYMBOLS
 
 GDSC_RMA <- GDSC_RMA[,-1]
 
+### progeny
+
 progeny_model <- decoupleR::get_progeny(top = 100)
 
 progeny_activities <- run_ulm(GDSC_RMA, progeny_model)
@@ -25,6 +27,18 @@ progeny_activities <- run_ulm(GDSC_RMA, progeny_model)
 progeny_activities_wf <- reshape2::dcast(progeny_activities[,c(2,3,4)], source~condition)
 
 write_csv(progeny_activities_wf, file = "results/GDSC_progeny_activities.csv")
+write_csv(progeny_activities_wf, file = "results/GDSC_progeny_activities.csv")
+
+### collectrI
+
+collectrI <- decoupleR::get_collectri()
+
+TF_activities <- run_ulm(GDSC_RMA, collectrI)
+
+TF_activities_df <- reshape2::dcast(TF_activities[,c(2,3,4)], source~condition)
+
+write_csv(collectrI, file = "support/collectrI.csv")
+write_csv(TF_activities_df, file = "results/GDSC_TF_activities.csv")
 
 #####
 
