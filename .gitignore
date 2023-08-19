@@ -1,4 +1,4 @@
-data/Cell_line_RMA_proc_basalExp.txt
+data/**
 .Rproj.user/
 omnipathr-log/
 data/GDSC1_fitted_dose_response_24Jul22.xlsx
