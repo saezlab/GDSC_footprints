@@ -20,6 +20,13 @@ GDSC_rnaseq_tpm_20220624 <- GDSC_rnaseq_tpm_20220624[complete.cases(GDSC_rnaseq_
 #to match the CCLE dataset
 GDSC_rnaseq_tpm_20220624_logp1 <- log2(GDSC_rnaseq_tpm_20220624+1)
 
+#obtained from https://depmap.org/portal/download/all/ -- OmicsExpressionProteinCodingGenesTPMLogp1.csv
+#to have roughly the same genes as CCLE
+CCLE_coding_genes <- as.data.frame(
+  read.table("support/CCLE_coding_genes.txt", quote="\"", comment.char=""))
+
+GDSC_rnaseq_tpm_20220624_logp1 <- GDSC_rnaseq_tpm_20220624_logp1[CCLE_coding_genes[,1],]
+GDSC_rnaseq_tpm_20220624_logp1 <- GDSC_rnaseq_tpm_20220624_logp1[complete.cases(GDSC_rnaseq_tpm_20220624_logp1 ),]
 ### progeny
 
 progeny_model <- decoupleR::get_progeny(top = 100)

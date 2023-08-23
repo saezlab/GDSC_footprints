@@ -3,3 +3,4 @@ data/**
 omnipathr-log/
 data/GDSC1_fitted_dose_response_24Jul22.xlsx
 .Rhistory
+.DS_Store
