@@ -17,11 +17,14 @@ row.names(GDSC_rnaseq_tpm_20220624) <- GDSC_rnaseq_tpm_20220624$GENE_SYMBOLS
 GDSC_rnaseq_tpm_20220624 <- GDSC_rnaseq_tpm_20220624[,-1]
 GDSC_rnaseq_tpm_20220624 <- GDSC_rnaseq_tpm_20220624[complete.cases(GDSC_rnaseq_tpm_20220624),]
 
+#to match the CCLE dataset
+GDSC_rnaseq_tpm_20220624_logp1 <- log2(GDSC_rnaseq_tpm_20220624+1)
+
 ### progeny
 
 progeny_model <- decoupleR::get_progeny(top = 100)
 
-progeny_activities <- run_ulm(GDSC_rnaseq_tpm_20220624, progeny_model)
+progeny_activities <- run_ulm(GDSC_rnaseq_tpm_20220624_logp1, progeny_model)
 
 progeny_activities_wf <- reshape2::dcast(progeny_activities[,c(2,3,4)], source~condition)
 
@@ -32,7 +35,7 @@ write_csv(progeny_activities_wf, file = "results/GDSC_progeny_activities.csv")
 
 collectrI <- decoupleR::get_collectri()
 
-TF_activities <- run_ulm(GDSC_rnaseq_tpm_20220624, collectrI)
+TF_activities <- run_ulm(GDSC_rnaseq_tpm_20220624_logp1, collectrI)
 
 TF_activities_df <- reshape2::dcast(TF_activities[,c(2,3,4)], source~condition)
 
